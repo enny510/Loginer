@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.neenbedankt.android-apt'
-
 
 android {
     compileSdkVersion 26
@@ -36,8 +34,9 @@ dependencies {
     compile"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //dagger
-    compile 'com.google.dagger:dagger:2.7'
-    apt 'com.google.dagger:dagger-compiler:2.7'
+    compile 'com.google.dagger:dagger:2.15'
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+    kapt 'com.google.dagger:dagger-compiler:2.15'
 
     compile group: 'com.android.support.test.uiautomator', name: 'uiautomator-v18', version: '2.1.3'
 

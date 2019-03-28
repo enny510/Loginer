@@ -3,6 +3,7 @@ package com.example.loginer
 import android.app.Application
 
 import com.example.loginer.config.AppComponent
+import com.example.loginer.config.DaggerAppComponent
 import com.example.loginer.config.modules.AppModule
 
 class AndroidApplication : Application() {

@@ -3,6 +3,7 @@ package com.example.loginer
 import android.support.test.uiautomator.By
 import android.support.test.uiautomator.UiObject2
 import android.support.test.uiautomator.Until
+import com.example.loginer.model.User
 import com.example.loginer.model.UserRepositoryImpl
 import com.example.loginer.screens.LoginScreen
 import com.example.loginer.screens.SuccessLoginScreen
@@ -26,7 +27,7 @@ class LoginPageTest: BaseTest() {
     @Test
     fun loginWithInvalidDataTest() {
         LoginScreen(device).setLogin("t").setPassword("t")
-        device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
+        device.wait(Until.findObject(SuccessLoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
     }
 
     @Test
@@ -38,6 +39,14 @@ class LoginPageTest: BaseTest() {
     @Test
     fun loginWithoutLoginTest() {
         LoginScreen(device).setPassword("test")
+        device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
+    }
+
+    @Test
+    fun loginAsValidUserAndBackTest() {
+        val successLoginScreen = LoginScreen(device).authorizeAsUser(User("test", "test"))
+        device.wait(Until.findObject(SuccessLoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
+        successLoginScreen.clickBack()
         device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
     }
 }
