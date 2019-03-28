@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Loginer</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_label">login</string>
+    <string name="password_label">password</string>
+    <string name="back_action">Back</string>
+    <string name="title_activity_success_login">Success Login</string>
+    <string name="title_activity_login">Log in</string>
+</resources>
