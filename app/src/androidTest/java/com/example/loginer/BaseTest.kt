@@ -22,7 +22,6 @@ open class BaseTest {
 
     companion object {
         const val LAUNCH_TIMEOUT = 10000L
-        const val PACKAGE_NAME = "com.example.loginer"
     }
 
     @Before
@@ -36,11 +35,11 @@ open class BaseTest {
         val packageName = InstrumentationRegistry.getTargetContext().packageName
         val context = InstrumentationRegistry.getContext()
         val intent = context.packageManager
-                .getLaunchIntentForPackage(PACKAGE_NAME)
+                .getLaunchIntentForPackage(packageName)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
         context.startActivity(intent)
-        device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), LAUNCH_TIMEOUT)
+        device.wait(Until.hasObject(By.pkg(packageName).depth(0)), LAUNCH_TIMEOUT)
         return device
     }
 }

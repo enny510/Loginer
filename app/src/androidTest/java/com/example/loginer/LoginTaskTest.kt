@@ -10,17 +10,22 @@ import com.example.loginer.screens.SuccessLoginScreen
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
-class LoginPageTest: BaseTest() {
+class LoginTaskTest: BaseTest() {
+
+    companion object {
+        private const val VALID_LOGIN = "test"
+        private const val VALID_PASSWORD = "test"
+    }
 
     @Test
     fun validLoginPasswordTest() {
-        LoginScreen(device).setLogin("test").setPassword("test")
+        LoginScreen(device).setLogin(VALID_LOGIN).setPassword(VALID_PASSWORD)
         device.wait(Until.findObject(SuccessLoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
     }
 
     @Test
     fun validPasswordLoginTest() {
-        LoginScreen(device).setPassword("test").setLogin("test")
+        LoginScreen(device).setPassword(VALID_PASSWORD).setLogin(VALID_LOGIN)
         device.wait(Until.findObject(SuccessLoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
     }
 
@@ -32,19 +37,31 @@ class LoginPageTest: BaseTest() {
 
     @Test
     fun loginWithoutPasswordTest() {
-        LoginScreen(device).setLogin("test")
+        LoginScreen(device).setLogin(VALID_LOGIN)
         device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
     }
 
     @Test
     fun loginWithoutLoginTest() {
-        LoginScreen(device).setPassword("test")
+        LoginScreen(device).setPassword(VALID_PASSWORD)
+        device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
+    }
+
+    @Test
+    fun loginWithWrongLoginTest() {
+        LoginScreen(device).setLogin("t").setPassword(VALID_PASSWORD)
+        device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
+    }
+
+    @Test
+    fun loginWithWrongPasswordTest() {
+        LoginScreen(device).setLogin(VALID_LOGIN).setPassword("t")
         device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
     }
 
     @Test
     fun loginAsValidUserAndBackTest() {
-        val successLoginScreen = LoginScreen(device).authorizeAsUser(User("test", "test"))
+        val successLoginScreen = LoginScreen(device).authorizeAsUser(User(VALID_LOGIN, VALID_PASSWORD))
         device.wait(Until.findObject(SuccessLoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
         successLoginScreen.clickBack()
         device.wait(Until.findObject(LoginScreen.screenMarker), BaseTest.LAUNCH_TIMEOUT)
